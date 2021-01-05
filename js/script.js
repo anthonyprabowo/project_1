@@ -16,6 +16,8 @@ const source = document.querySelector('.source');
 const year = document.querySelector('.year');
 const tag = document.querySelector('.tags');
 const quoteBox = document.querySelector('.quote-box');
+let counter = 5; // in seconds
+var count = setInterval(countDown, 1000);
 
 /*** 
  * `quotes` array 
@@ -91,14 +93,29 @@ function getRandomQuote() {
 ***/
 
 function printQuote() {
+  clearInterval(count);
+  counter = 5;
   const quotes = getRandomQuote();
   body.style.backgroundColor = quotes.color;
   quote.innerHTML = quotes.quote;
   source.innerHTML = quotes.author;
   year.innerHTML = quotes.year;
   tag.innerHTML = 'tags: ' + quotes.tags;
+  count = setInterval(countDown, 1000);
 }
 
+function countDown() {
+  counter--;
+  checkCounter();
+}
+
+function checkCounter() {
+  if(counter === 0) {
+    printQuote();
+  } else {
+    // keep going
+  }
+}
 
 
 /***
