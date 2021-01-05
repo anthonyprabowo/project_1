@@ -28,50 +28,43 @@ const quotes = [
     quote: "You know you’re in love when you can’t fall asleep because reality is finally better than your dreams.",
     author: "Dr. Suess",
     year: "",
-    tags: "",
-    color: "#011f4b"
+    tags: ""
   },
   {
     quote: "You've gotta dance like there's nobody watching, Love like you'll never be hurt, Sing like there's nobody listening, And live like it's heaven on earth",
     author: "William W. Purkey",
     year: "",
-    tags: "inspirational",
-    color: "#251e3e"
+    tags: "inspirational"
   },
   {
     quote: "To live is the rarest thing in the world. Most people exist, that is all.",
     author: "Oscar Wilde",
     year: "",
-    tags: "life",
-    color: "#451e3e"
+    tags: "life"
   },
   {
     quote: "The flower that blooms in adversity is the rarest and most beautiful of all.",
     author: "Mulan",
-    year: 1998,
-    tags: "inspiration",
-    color: "#854442"
+    year: "1998",
+    tags: "inspiration"
   },
   {
     quote: "Oh yes, the past can hurt. But the way I see it, you can either run from it or learn from it.",
     author: "The Lion King",
-    year: 1994,
-    tags: "",
-    color: "#3b5998"
+    year: "1994",
+    tags: ""
   },
   {
     quote: "Ohana means family, family means nobody gets left behind.",
     author: "Lilo and Stitch",
-    year: 2002,
-    tags: "family",
-    color: "#6f7c85"
+    year: "2002",
+    tags: "family"
   },
   {
     quote: "Some people are worth melting for.",
     author: "Frozen",
-    year: 2013,
-    tags: "love",
-    color: "#58668b"
+    year: "2013",
+    tags: "love"
   }
 ]
 
@@ -83,6 +76,7 @@ const quotes = [
 
 function getRandomQuote() {
   let randomNumber = Math.floor(Math.random() * (quotes.length - 1)); // generate random numbers based on the length of the array
+  console.log(randomNumber);
   return quotes[randomNumber] // return the quotes object
 }
 
@@ -96,11 +90,19 @@ function printQuote() {
   clearInterval(count); // clear intervals for every function call
   counter = 5; // reset function
   const quotes = getRandomQuote(); 
-  body.style.backgroundColor = quotes.color;
+  body.style.backgroundColor = getRandomColor();
   quote.innerHTML = quotes.quote;
-  source.innerHTML = quotes.author;
-  year.innerHTML = quotes.year;
-  tag.innerHTML = 'tags: ' + quotes.tags;
+  if(quotes.year === '') {
+    source.innerHTML = quotes.author; // if year is empty, print only the author name
+  } else {
+    source.innerHTML = quotes.author + '<span class="year">' + quotes.year + '</span>'; // if year is not empty, print the author and year as well
+  }
+
+  if(quotes.tags !== '') {
+    tag.innerHTML = 'tags: ' + quotes.tags; // if tags is not empty, include the tags
+  } else {
+    tag.innerHTML = '' // if tag is empty, remove the html inside tags
+  }
   count = setInterval(countDown, 1000); // setting a new setInterval
 }
 
@@ -115,6 +117,15 @@ function checkCounter() {
   } else {
     // keep going
   }
+}
+
+function getRandomColor() { // generate random color
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)]; // get random letter from the letter variable and assign it to color
+  }
+  return color;
 }
 
 
