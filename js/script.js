@@ -82,8 +82,8 @@ const quotes = [
 ***/
 
 function getRandomQuote() {
-  let randomNumber = Math.floor(Math.random() * (quotes.length - 1));
-  return quotes[randomNumber]
+  let randomNumber = Math.floor(Math.random() * (quotes.length - 1)); // generate random numbers based on the length of the array
+  return quotes[randomNumber] // return the quotes object
 }
 
 
@@ -93,15 +93,15 @@ function getRandomQuote() {
 ***/
 
 function printQuote() {
-  clearInterval(count);
-  counter = 5;
-  const quotes = getRandomQuote();
+  clearInterval(count); // clear intervals for every function call
+  counter = 5; // reset function
+  const quotes = getRandomQuote(); 
   body.style.backgroundColor = quotes.color;
   quote.innerHTML = quotes.quote;
   source.innerHTML = quotes.author;
   year.innerHTML = quotes.year;
   tag.innerHTML = 'tags: ' + quotes.tags;
-  count = setInterval(countDown, 1000);
+  count = setInterval(countDown, 1000); // setting a new setInterval
 }
 
 function countDown() {
@@ -110,7 +110,7 @@ function countDown() {
 }
 
 function checkCounter() {
-  if(counter === 0) {
+  if(counter === 0) { // if counter is zero, call printQuote again
     printQuote();
   } else {
     // keep going
