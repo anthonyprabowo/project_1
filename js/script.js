@@ -13,6 +13,7 @@ project 1 - A Random Quote Generator
 const body = document.querySelector('body');
 const quote = document.querySelector('.quote');
 const source = document.querySelector('.source');
+const citation = document.querySelector('.citation');
 const year = document.querySelector('.year');
 const tag = document.querySelector('.tags');
 const quoteBox = document.querySelector('.quote-box');
@@ -26,45 +27,52 @@ var count = setInterval(countDown, 1000);
 const quotes = [
   {
     quote: "You know you’re in love when you can’t fall asleep because reality is finally better than your dreams.",
-    author: "Dr. Suess",
+    source: "Dr. Suess",
     year: "",
-    tags: ""
+    tags: "",
+    citation: ""
   },
   {
     quote: "You've gotta dance like there's nobody watching, Love like you'll never be hurt, Sing like there's nobody listening, And live like it's heaven on earth",
-    author: "William W. Purkey",
+    source: "William W. Purkey",
     year: "",
-    tags: "inspirational"
+    tags: "inspirational",
+    citation: ""
   },
   {
     quote: "To live is the rarest thing in the world. Most people exist, that is all.",
-    author: "Oscar Wilde",
+    source: "Oscar Wilde",
     year: "",
-    tags: "life"
+    tags: "life",
+    citation: "The Good Reads"
   },
   {
     quote: "The flower that blooms in adversity is the rarest and most beautiful of all.",
-    author: "Mulan",
+    source: "Mulan",
     year: "1998",
-    tags: "inspiration"
+    tags: "inspiration",
+    citation: "The Good Reads"
   },
   {
     quote: "Oh yes, the past can hurt. But the way I see it, you can either run from it or learn from it.",
-    author: "The Lion King",
+    source: "The Lion King",
     year: "1994",
-    tags: ""
+    tags: "",
+    citation: ""
   },
   {
     quote: "Ohana means family, family means nobody gets left behind.",
-    author: "Lilo and Stitch",
+    source: "Lilo and Stitch",
     year: "2002",
-    tags: "family"
+    tags: "family",
+    citation: ""
   },
   {
     quote: "Some people are worth melting for.",
-    author: "Frozen",
+    source: "Frozen",
     year: "2013",
-    tags: "love"
+    tags: "love",
+    citation: ""
   }
 ]
 
@@ -75,8 +83,7 @@ const quotes = [
 ***/
 
 function getRandomQuote() {
-  let randomNumber = Math.floor(Math.random() * (quotes.length - 1)); // generate random numbers based on the length of the array
-  console.log(randomNumber);
+  let randomNumber = Math.floor(Math.random() * quotes.length); // generate random numbers based on the length of the array
   return quotes[randomNumber] // return the quotes object
 }
 
@@ -89,19 +96,25 @@ function getRandomQuote() {
 function printQuote() {
   clearInterval(count); // clear intervals for every function call
   counter = 5; // reset function
+  let sourceHTML = "";
   const quotes = getRandomQuote(); 
   body.style.backgroundColor = getRandomColor();
   quote.innerHTML = quotes.quote;
-  if(quotes.year === '') {
-    source.innerHTML = quotes.author; // if year is empty, print only the author name
-  } else {
-    source.innerHTML = quotes.author + '<span class="year">' + quotes.year + '</span>'; // if year is not empty, print the author and year as well
+  sourceHTML += `
+    ${quotes.source}
+  `
+  if(quotes.citation !== '') {
+    sourceHTML += `<span class="citation">${quotes.citation}</span>`
   }
-
+  if(quotes.year !== '') {
+    sourceHTML += `<span class="year">${quotes.year}</span>`;
+  }
+  source.innerHTML = sourceHTML;
+  //source insert here
   if(quotes.tags !== '') {
     tag.innerHTML = 'tags: ' + quotes.tags; // if tags is not empty, include the tags
   } else {
-    tag.innerHTML = '' // if tag is empty, remove the html inside tags
+    tag.innerText = '' // if tag is empty, remove the html inside tags
   }
   count = setInterval(countDown, 1000); // setting a new setInterval
 }
